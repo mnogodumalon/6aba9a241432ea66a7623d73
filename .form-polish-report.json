@@ -1,0 +1,34 @@
+{
+  "entities": {
+    "Fertigungsauftrag": {
+      "placeholders_set": 18,
+      "defaults_keys": ["auftragsdatum", "prioritaet", "geplanter_start", "geplanter_abschluss", "auftragsstatus_gesamt"],
+      "computed_keys": [],
+      "reason": "Stammdaten-Entity ohne berechenbare Felder — keine applookup-Verknüpfungen mit Preis-Target, keine Mengen×Preise. Datumsfelder mit klaren Defaults (heute, +30 Tage), Status auf Anfangswert 'Neu'."
+    },
+    "Arbeitsvorbereitung": {
+      "placeholders_set": 11,
+      "defaults_keys": ["status_planung"],
+      "computed_keys": [],
+      "reason": "Planungs-Entity mit einer einzelnen Soll-Stunden-Zahl (nicht berechenbar aus anderen Feldern). Applookup auf Fertigungsauftrag hat keine Preis-Felder im Target. Status auf Anfangswert 'Offen'."
+    },
+    "Stationsprotokoll": {
+      "placeholders_set": 16,
+      "defaults_keys": ["bearbeitungsstatus", "beginn_datum_zeit"],
+      "computed_keys": ["ist_stunden"],
+      "reason": "Arbeitszeitsystem mit Datums-Pair (beginn ↔ ende). Ist-Stunden berechenbar als dateDiff(beginn, ende, hours). Status auf 'Nicht begonnen', Beginn auf heute mit Uhrzeit."
+    },
+    "Problemerfassung": {
+      "placeholders_set": 14,
+      "defaults_keys": ["problem_datum_zeit", "problem_status"],
+      "computed_keys": [],
+      "reason": "Incident-Management-Entity mit Meldezeitpunkt (default heute+jetzt) und Status-Tracking. Keine berechenbaren Felder — Ursachen, Lösungsmaßnahmen und Auswirkungen sind textuell. Status auf 'Offen'."
+    },
+    "Auftragsstatus": {
+      "placeholders_set": 18,
+      "defaults_keys": ["gesamtstatus", "fertigstellungsgrad_gesamt", "letzte_aktualisierung", "eskalation_erforderlich"],
+      "computed_keys": ["verbleibende_stunden"],
+      "reason": "Aggregat-Entity zur Statusverfolgung. Verbleibende Stunden = Soll − Ist (einfache Differenz von zwei number-Feldern). Defaults für Status (planmäßig), Fertigstellungsgrad (0%), Timestamp (heute+jetzt) und Eskalations-Flag (falsch). Alle Statusposten übersichtlich vorberechnet."
+    }
+  }
+}
