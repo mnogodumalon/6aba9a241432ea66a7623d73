@@ -10,6 +10,11 @@ import DashboardReady from '@/pages/DashboardReady';
 import PublicPagesAdmin from '@/pages/PublicPagesAdmin';
 import IntentsAdmin from '@/pages/IntentsAdmin';
 // <custom:imports>
+const IntentNeuerAuftragPage = lazy(() => import('@/pages/intents/NeuerAuftragPage'));
+import { DashboardSkeleton } from '@/components/DashboardStates';
+const IntentStationsprotokollErfassenPage = lazy(() => import('@/pages/intents/StationsprotokollErfassenPage'));
+const IntentProblemMeldenPage = lazy(() => import('@/pages/intents/ProblemMeldenPage'));
+const IntentAuftragstatusAktualisierenPage = lazy(() => import('@/pages/intents/AuftragstatusAktualisierenPage'));
 // </custom:imports>
 
 // Lazy: public pages live outside <Layout> and only load on /#/public/:slug —
@@ -77,6 +82,10 @@ export default function App() {
                 <Route path="verwaltung/ablaeufe" element={<IntentsAdmin />} />
                 <Route path="verwaltung/oeffentliche-seiten" element={<PublicPagesAdmin />} />
                 {/* <custom:routes> */}
+                <Route path="intents/neuer-auftrag" element={<Suspense fallback={<DashboardSkeleton />}><IntentNeuerAuftragPage /></Suspense>} />
+                <Route path="intents/stationsprotokoll-erfassen" element={<Suspense fallback={<DashboardSkeleton />}><IntentStationsprotokollErfassenPage /></Suspense>} />
+                <Route path="intents/problem-melden" element={<Suspense fallback={<DashboardSkeleton />}><IntentProblemMeldenPage /></Suspense>} />
+                <Route path="intents/auftragsstatus-aktualisieren" element={<Suspense fallback={<DashboardSkeleton />}><IntentAuftragstatusAktualisierenPage /></Suspense>} />
                 {/* </custom:routes> */}
                 {/* An unknown hash (a bookmark from before a rebuild renamed the
                     flows, a mistyped link) must not be a blank page. */}
